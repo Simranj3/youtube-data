@@ -1,0 +1,39 @@
+var tings = {
+  "name": "trending_date",
+  "index": [
+    "Autos & Vehicles",
+    "Comedy",
+    "Education",
+    "Entertainment",
+    "Film & Animation",
+    "Gaming",
+    "Howto & Style",
+    "Movies",
+    "Music",
+    "News & Politics",
+    "People & Blogs",
+    "Pets & Animals",
+    "Science & Technology",
+    "Shows",
+    "Sports",
+    "Travel & Events"
+  ],
+  "nums": [
+    353,
+    3773,
+    991,
+    13451,
+    2060,
+    1344,
+    2007,
+    6,
+    3731,
+    4159,
+    4105,
+    369,
+    1155,
+    124,
+    2787,
+    392
+  ]
+}
