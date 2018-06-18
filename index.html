@@ -1,123 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<title> Youtube Data Analysis </title>
+    <head>
+        <meta charset="utf-8">
+        <title> Youtube Data Analysis </title>
         <h1> Youtube Data </h1>
-		<script type="text/javascript" src="../d3.js"></script>
-	</head>
-	<body>
+    </head>
+    <body>
         <script src="http://d3js.org/d3.v3.min.js"></script>
-        
+       
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-
-
-		<script type="text/javascript">
-
-			/*d3.csv("food.csv", function(data) {
-				console.log(data);
-			});*/
-            
-            /*var json = {"my": "json"};
-            d3.json(ca-catts.json, function(json) {
-            root = json;
-            root.x0 = h / 2;
-            root.y0 = 0;
-            });*/
-            
-           /* $.getJSON("ca-catts.json", function(json){
-                console.log(json);
-            });*/
-            
-           /* d3.json("ca-catts.json", function(data){
-                console.log(data);
-            })*/ 
-            
-            var cadata = {
-  "name": "trending_date",
-  "index": [
-    "Autos & Vehicles",
-    "Comedy",
-    "Education",
-    "Entertainment",
-    "Film & Animation",
-    "Gaming",
-    "Howto & Style",
-    "Movies",
-    "Music",
-    "News & Politics",
-    "People & Blogs",
-    "Pets & Animals",
-    "Science & Technology",
-    "Shows",
-    "Sports",
-    "Travel & Events"
-  ],
-  "data": [
-    353,
-    3773,
-    991,
-    13451,
-    2060,
-    1344,
-    2007,
-    6,
-    3731,
-    4159,
-    4105,
-    369,
-    1155,
-    124,
-    2787,
-    392
-  ]
+        <script type="text/javascript">
+           
+            var youtubeData = {
+            "name": "trending_date",
+            "index": [
+              "Autos & Vehicles",
+              "Comedy",
+              "Education",
+              "Entertainment",
+              "Film & Animation",
+              "Gaming",
+              "Howto & Style",
+              "Movies",
+              "Music",
+              "News & Politics",
+              "People & Blogs",
+              "Pets & Animals",
+              "Science & Technology",
+              "Shows",
+              "Sports",
+              "Travel & Events"
+            ],
+            "nums": [
+              353,
+              3773,
+              991,
+              13451,
+              2060,
+              1344,
+              2007,
+              6,
+              3731,
+              4159,
+              4105,
+              369,
+              1155,
+              124,
+              2787,
+              392
+            ]
+          }
+function cleanDFJSON(youtubeData) {
+    var finalArray = [];
+    for (var i=0; i<youtubeData["index"].length; i++) {
+         let tempObj = {};
+         tempObj['Category'] = youtubeData["index"][i];
+         tempObj['Frequency']  = youtubeData["nums"][i];
+     finalArray.push(tempObj);
+    }
+    return finalArray;
 }
-            
-
+var data = cleanDFJSON(youtubeData);
+ 
 // set the dimensions of the canvas
 var margin = {top: 20, right: 20, bottom: 70, left: 40},
     width = 600 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
-
-
 // set the ranges
 var x = d3.scale.ordinal().rangeRoundBands([0, width], .05);
-
 var y = d3.scale.linear().range([height, 0]);
-
 // define the axis
 var xAxis = d3.svg.axis()
     .scale(x)
     .orient("bottom")
-
-
 var yAxis = d3.svg.axis()
     .scale(y)
     .orient("left")
     .ticks(10);
-
-
 // add the SVG element
 var svg = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
-    .attr("transform", 
+    .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
-
-
-// load the data
-d3.json("ca-catts.json", function(error, data) {
-
+   
+    // load the data
     data.forEach(function(d) {
-        d.Index = d.index;
-        d.nums = d.nums;
+        d.Category = d.Category;
+        d.Frequency = +d.Frequency;
     });
-	
+   
   // scale the range of the data
-  x.domain(data.map(function(d) { return d.Letter; }));
-  y.domain([0, d3.max(data, function(d) { return d.Freq; })]);
-
+  x.domain(data.map(function(d) { return d.Category; }));
+  y.domain([0, d3.max(data, function(d) { return d.Frequency; })]);
+ 
   // add axis
   svg.append("g")
       .attr("class", "x axis")
@@ -128,7 +105,6 @@ d3.json("ca-catts.json", function(error, data) {
       .attr("dx", "-.8em")
       .attr("dy", "-.55em")
       .attr("transform", "rotate(-90)" );
-
   svg.append("g")
       .attr("class", "y axis")
       .call(yAxis)
@@ -138,21 +114,15 @@ d3.json("ca-catts.json", function(error, data) {
       .attr("dy", ".71em")
       .style("text-anchor", "end")
       .text("Frequency");
-
-
   // Add bar chart
   svg.selectAll("bar")
       .data(data)
     .enter().append("rect")
       .attr("class", "bar")
-      .attr("x", function(d) { return x(d.Letter); })
+      .attr("x", function(d) { return x(d.Category); })
       .attr("width", x.rangeBand())
-      .attr("y", function(d) { return y(d.Freq); })
-      .attr("height", function(d) { return height - y(d.Freq); });
-
-
-
-
-		</script>
-	</body>
+      .attr("y", function(d) { return y(d.Frequency); })
+      .attr("height", function(d) { return height - y(d.Frequency); });
+        </script>
+    </body>
 </html>
