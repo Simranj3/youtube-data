@@ -1,5 +1,5 @@
  .bar{
-    fill: steelblue;
+    fill: #1EB4E2;
   }
 
 
@@ -19,3 +19,58 @@
 	  stroke: #000;
 	  shape-rendering: crispEdges;
 	}
+
+#header { 
+    font-family: 'Vollkorn';
+    font-weight: 600;
+    color: #454545;
+    font-size: 72px; 
+    margin-right: auto; 
+    margin-left: auto; 
+    text-align: center; 
+}
+
+.authors{ 
+    margin-right: auto; 
+    margin-left: auto; 
+    text-align: center; 
+    font-family: 'Montserrat';
+    font-weight: 500; 
+    font-family: 14px; 
+    color: #252525; 
+}
+
+.byline{ 
+    margin-right: auto; 
+    margin-left: auto; 
+    text-align: center; 
+    width: 50%; 
+    font-family: 'Roboto';
+    font-size: 14px; 
+    color: #505050; 
+    line-height: 20px; 
+}
+
+
+.links { 
+    text-decoration: none; 
+    color: #252525; 
+}
+
+.links:hover{ 
+    color: #1EB4E2; 
+}
+
+.section-header{ 
+    font-family: 'Vollkorn';
+    font-weight: 400;
+    margin-right: auto; 
+    margin-left: auto; 
+    text-align: center; 
+     color: #252525;
+}
+
+#change-buttons button { 
+    font-family: 'Roboto'; 
+    font-size: 14px; 
+}
