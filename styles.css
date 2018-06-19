@@ -1,0 +1,21 @@
+ .bar{
+    fill: steelblue;
+  }
+
+
+  .bar:hover{
+    fill: brown;
+  }
+
+	.axis {
+        font:5px;
+    font-family: 'Roboto';
+
+	}
+
+	.axis path,
+	.axis line {
+	  fill: none;
+	  stroke: #000;
+	  shape-rendering: crispEdges;
+	}

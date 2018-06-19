@@ -2,6 +2,8 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
+          <link rel="stylesheet" href="styles.css">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat|Patua+One|Roboto|Vollkorn" rel="stylesheet">
         <title> Youtube Data Analysis </title>
         <h1> Youtube Data </h1>
     </head>
@@ -80,7 +82,7 @@ var yAxis = d3.svg.axis()
 // add the SVG element
 var svg = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
+    .attr("height", height + margin.top + margin.bottom+100)
   .append("g")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
@@ -112,8 +114,7 @@ var svg = d3.select("body").append("svg")
       .attr("transform", "rotate(-90)")
       .attr("y", 5)
       .attr("dy", ".71em")
-      .style("text-anchor", "end")
-      .text("Frequency");
+      .style("text-anchor", "end");
   // Add bar chart
   svg.selectAll("bar")
       .data(data)
