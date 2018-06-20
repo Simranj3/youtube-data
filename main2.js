@@ -14,16 +14,16 @@ function cleanDFJSON(youtubeData) {
     return finalArray;
 }
 
-var svg = d3.select("body").append("svg")
+var svg = d3.select("#horizontal-bar-chart").append("svg")
         .attr("width", 1000)
-        .attr("height", 1000);
+        .attr("height", 400);
     //margin = {top: 20, right: 20, bottom: 30, left: 80},
     //width = +svg.attr("width") - margin.left - margin.right,
     //height = +svg.attr("height") - margin.top - margin.bottom;
   
 var tooltip = d3.select("body").append("div").attr("class", "toolTip");
 var width = 1000; 
-var height = 700; 
+var height = 300; 
 var margin = {top: 20, right: 20, bottom: 30, left: 80};
 var x = d3.scaleLinear().range([0, width]);
 var y = d3.scaleBand().range([height, 0]);
@@ -31,6 +31,8 @@ var y = d3.scaleBand().range([height, 0]);
 function showGraphTwo(jsonURI) { 
     d3.json(jsonURI, (data) => {
         var data = cleanDFJSON(data);
+      	data.sort(function(a, b) { return a.value - b.value; });
+
  
     //var data = cleanDFJSON(inlineData); 
     x.domain([0, d3.max(data, function(d) { return d.Frequency; })]);
@@ -44,7 +46,7 @@ function showGraphTwo(jsonURI) {
     g.append("g")
         .attr("class", "x axis")
        	.attr("transform", "translate(0," + height + ")")
-      	.call(d3.axisBottom(x).ticks(5).tickFormat(function(d) { return parseInt(d / 1000); }).tickSizeInner([-height]));
+      	.call(d3.axisBottom(x).ticks(5).tickFormat(function(d) { return parseInt(d); }).tickSizeInner([-height]));
 
     g.append("g")
         .attr("class", "y axis")

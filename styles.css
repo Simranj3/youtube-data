@@ -75,9 +75,11 @@
     font-size: 14px; 
 }
 
+#change-buttons button:active{ 
+    background-color: red; 
+}
+
 #change-buttons { 
-    margin-right: auto; 
-    margin-left: auto; 
-    display: inline-block;
-    text-align: center; 
+    width: 29%;
+    margin: auto; 
 }
