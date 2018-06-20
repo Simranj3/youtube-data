@@ -22,17 +22,11 @@ var svg = d3.select("body").append("svg")
     //height = +svg.attr("height") - margin.top - margin.bottom;
   
 var tooltip = d3.select("body").append("div").attr("class", "toolTip");
-
 var width = 1000; 
 var height = 700; 
 var margin = {top: 20, right: 20, bottom: 30, left: 80};
-  
 var x = d3.scaleLinear().range([0, width]);
 var y = d3.scaleBand().range([height, 0]);
-
-var g = svg.append("g")
-		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
 
 function showGraphTwo(jsonURI) { 
     d3.json(jsonURI, (data) => {
@@ -41,7 +35,11 @@ function showGraphTwo(jsonURI) {
     //var data = cleanDFJSON(inlineData); 
     x.domain([0, d3.max(data, function(d) { return d.Frequency; })]);
     y.domain(data.map(function(d) { return d.Category; })).padding(0.1);
-    //svg.selectAll("*").remove();
+
+
+
+    svg.selectAll("*").remove();
+    var g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     g.append("g")
         .attr("class", "x axis")
