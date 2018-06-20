@@ -74,3 +74,10 @@
     font-family: 'Roboto'; 
     font-size: 14px; 
 }
+
+#change-buttons { 
+    margin-right: auto; 
+    margin-left: auto; 
+    display: inline-block;
+    text-align: center; 
+}
