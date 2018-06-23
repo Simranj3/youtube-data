@@ -178,5 +178,78 @@ function cleanDFCategoryJSON(youtubeData) {
     return [finalArray, channelArr];
 }
 
+function scatterplot(csvURI, category) {
+    d3.csv(csvURI, (data) => {
+        
+        data.forEach(function(d) {
+            d.views = +d.views;
+            d.likes = +d.likes;
+        });
+        
+        var newData = [];
+        data.forEach((d)=> {
+            if (d.category_id == category)
+                newData.push(d);
+        });
+        data = newData;
+        
+        xScatter.domain(d3.extent(data, function(d) { return parseInt(d.views); })).nice();
+        yScatter.domain(d3.extent(data, function(d) { return parseFloat(parseInt(d.likes)/(parseInt(d.likes)+parseInt(d.dislikes))); })).nice();
+     svgScatter.selectAll("*").remove();
+        
+     svgScatter.append("g")
+          .attr("class", "x axis")
+          .attr("transform", "translate(0," + height + ")")
+          .call(xAxisScatter)
+        .append("text")
+          .attr("class", "label")
+          .attr("x", width)
+          .attr("y", -6)
+          .style("text-anchor", "end")
+          .text("Sepal Width (cm)");
+
+      svgScatter.append("g")
+          .attr("class", "y axis")
+          .call(yAxisScatter)
+        .append("text")
+          .attr("class", "label")
+          .attr("transform", "rotate(-90)")
+          .attr("y", 6)
+          .attr("dy", ".71em")
+          .style("text-anchor", "end")
+          .text("Sepal Length (cm)")
+      
+      
+      svgScatter.selectAll(".dot")
+          .data(data)
+        .enter().append("circle")
+          .attr("class", "dot")
+          .attr("r", 1)
+          .attr("cx", function(d) { return xScatter(d.views); })
+          .attr("cy", function(d) { return yScatter(parseFloat(parseInt(d.likes)/(parseInt(d.likes)+parseInt(d.dislikes))));  })
+          .style("fill", function(d) { return colorScatter(d.category_id); });
+
+    })
+}
+
+
+var marginScatter = {top: 20, right: 200, bottom: 30, left: 40},
+    widthScatter = 960 - margin.left - margin.right,
+    heightScatter = 500 - margin.top - margin.bottom;
+var xScatter = d3.scaleLinear()
+    .range([0, width]);
+var yScatter = d3.scaleLinear()
+    .range([height, 0]);
+var colorScatter = d3.scaleOrdinal(d3.schemeCategory10);
+var xAxisScatter = d3.axisBottom(xScatter);
+var yAxisScatter = d3.axisLeft(yScatter);
+var svgScatter = d3.select("#scatter-chart").append("svg")
+    .attr("width", widthScatter + marginScatter.left + marginScatter.right)
+    .attr("height", heightScatter + marginScatter.top + marginScatter.bottom)
+  .append("g")
+    .attr("transform", "translate(" + marginScatter.left + "," + marginScatter.top + ")");
+
+
 showGraphTwo('ca-catts.json'); 
 showGraphCategoriesAndCreators('us-catts-creats.json');
+scatterplot('us_scatter.csv', 'News & Politics');
