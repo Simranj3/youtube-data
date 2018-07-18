@@ -179,10 +179,16 @@ var y = d3.scaleBand().range([height, 0]);*/
 			  .data(function(d) { return d; })
 			  .enter().append("rect")
               .attr("class", "stack-rect")
-              .attr("y", function(d) { return y(d.data.category); } )
+              .attr("class", function(d) {
+                return "stack-rect" + d.data.category.split(' ').join('-').split('&').join('-');
+              })
+              .attr("y", function(d) { 
+                return yScale(d.data.category); } )
 			  .attr("x", function(d) { return xScale(d[0]); })
 			  .attr("height", yScale.bandwidth())
 			  .attr("width", function(d) { return xScale(d[1]) - xScale(d[0]) });
+
+
 //        .on("mouseover", function(d) {
 //            console.log(d);
 //            div.transition()
