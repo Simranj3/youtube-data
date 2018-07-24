@@ -10,7 +10,16 @@
         <img src="tings2.png" width="100%">
         <!--<h1 id="header" style="width:1000px"> What's Trending? </h1>-->
         <p class="authors"> By: <a href="https://github.com/SamEBae" class="links" target="_blank"> Sammie Bae </a>and <a href="https://github.com/Simranj3" class="links" target="_blank"> Simran Jassal</a></p>
-        <p class="byline"> An indepth analysis of trending videos from Youtube across countries such as Canada, America, France, Germany and Great Britain. This data is taken from Kaggle, which was scraped from the Youtube API. </p>
+        
+        <p class="byline"> An indepth analysis of trending videos from Youtube across countries such as Canada, America, France, Germany and Great Britain. This data is taken from <a href="https://www.kaggle.com/datasnaek/youtube-new" target="_blank" class="links">Kaggle </a>, which was scraped from the Youtube API. </p>
+        
+        <br> 
+        <br> 
+
+        
+        <p class="content-para"> There are a lot of ways we tend to entertain ourselves. On one end, we might purchase tickets to an immersive experience like Disneyland or other themeparks, and on the other end, we spend hours and hours scrolling through our algorithmic feeds. Youtube has given rise to another form of media that could bridge the two. It's a platform that offers videos that was shroter and more gimiky to videos of higher quality and production value. </p>
+        
+        <p class="content-para"> With the help of data visualization, we are able to take a quick peak at some of the trends around trending Youtube videos.</p>
     </head>
     <body>
         
@@ -20,6 +29,10 @@
         <section id="button-chart"> 
             
         <h1 class="section-header"> Trends by Country </h1>
+            
+        <p class="content-para"> Let's start by sorting the data by country. The dataset provided a location tag for each Youtube video (i.e: the video went viral in Canada). It should be noted that some datapoints may overlap (some videos were trending in more than one country). </p>
+            
+        <p class="content-para"> In this chart, we took all of the trending videos on Youtube and sorted them by the category they were listed under and the country they were trending in. The totals represent the number of videos that were trending in each of the categories. </p>
             <div id="change-buttons"> 
                 <button onClick="showGraphTwo('ca-catts.json')"> Canada </button>
                 <button onClick="showGraphTwo('us-catts.json')"> USA </button>
@@ -29,6 +42,8 @@
             </div>
             
             <div id="horizontal-bar-chart"  style="margin: auto"> </div>
+            
+            <p class="content-para"> There are a few interesting insights here: </p>
         </section>
         
         <section id="stacked-chart"> 
