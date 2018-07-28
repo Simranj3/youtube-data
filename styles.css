@@ -117,33 +117,6 @@
 		* {
 			box-sizing: border-box;
 		}
-		html,
-		body {
-			margin: 0;
-			padding: 0;
-			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-		}
-		body {
-			min-height: 1280px;
-			font-weight: 300;
-			color: #2a2a2a;
-		}
-		p,
-		h1,
-		h2,
-		h3,
-		h4,
-		a {
-			margin: 0;
-			font-weight: 300;
-		}
-		a,
-		a:visited,
-		a:hover {
-			color: #f30;
-			text-decoration: none;
-			border-bottom: 1px solid currentColor;
-		}
 		#intro {
 			max-width: 40rem;
 			margin: 1rem auto;
@@ -164,10 +137,10 @@
 		}
 		/* demo */
 		#intro {
-			margin-bottom: 320px;
+			margin-bottom: 320px; 
 		}
 		#outro {
-			height: 640px;
+			height: 640px
 		}
 		/* scrollama */
 		#scroll {
@@ -225,20 +198,15 @@
             margin-right: auto; 
             margin-left: auto; 
 			margin: 2rem auto ;
-			border: 1px solid #333;
+			/*border: 1px solid #333;*/
 		}
 		.step.is-active {
-			background-color: red;
-		}
-		.step p {
-			text-align: center;
-			padding: 1rem;
-			font-size: 1.5rem;
+			/*background-color: red;*/ 
 		}
 
 .path2 {
   stroke-dasharray: 250;
-  animation: drawHorizontal 5s linear alternate;
+  animation: drawHorizontal 1s linear alternate;
   opacity: 1;
 }
 
@@ -253,7 +221,7 @@
 
 .path3 {
   stroke-dasharray: 250;
-  animation: drawVertical 5s linear alternate;
+  animation: drawVertical 1s linear alternate;
   opacity: 1;
 }
 
@@ -266,7 +234,7 @@
   }
 }
 
-@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:0.6; } }
 
 .fade-in {
 	opacity:0;  /* make things invisible upon start */
@@ -287,4 +255,62 @@
 
 .main-chart {
 	margin-left: 60px;
+}
+
+.data-3 { 
+    border-radius: 10px; 
+}
+
+.x-axis-title{ 
+    font-size: 12px; 
+    font-family: 'Roboto';
+    margin-top: 10px; 
+    display: block; 
+    margin: auto; 
+    text-align: center; 
+}
+
+.y-axis-title { 
+    font-size: 12px; 
+    font-family; 'Roboto';
+    transform: rotate(90deg);
+    position: relative;
+    left: -150px;
+/*    top: 180px;*/
+}
+
+.svg-canvas{ 
+    margin: 0 auto; 
+    display: block; 
+}
+
+.fade-me-in{ 
+	opacity:0;  /* make things invisible upon start */
+	-webkit-animation:fadeIn ease-in 1;  /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
+	-moz-animation:fadeIn ease-in 1;
+	animation:fadeIn ease-in 1;
+	-webkit-animation-fill-mode:forwards;
+	-moz-animation-fill-mode:forwards;
+	animation-fill-mode:forwards;
+	-webkit-animation-duration:1s;
+	-moz-animation-duration:1s;
+	animation-duration:1s;
+}
+
+.educational-text{ 
+    width: 300px; 
+    background-color: red; 
+    display: block; 
+    height: 100px; 
+    text-align: center;
+    margin: auto 0;
+}
+
+.wrapper{ 
+    width: 800px; 
+    background-color: yellow;
+    display:flex;
+}
+.wrapper div {
+    flex-basis: 100%;
 }
