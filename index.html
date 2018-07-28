@@ -52,6 +52,176 @@
         
         <section id="scatter-chart"> 
             <h1 class="section-header"> Scatter Plot Tings </h1>
+            <p class="content-para"> For the following analysis, we decided to focus only on the videos trending in the USA. Let's start with how you should read the following graph: </p>
+            
+
+            
+            
+            
+<!-- SCOLL --> 
+
+    <head>
+        <script src="http://d3js.org/d3.v4.min.js"></script>
+        <script src='https://unpkg.com/intersection-observer@0.5.0/intersection-observer.js'></script>
+        <script src='https://unpkg.com/scrollama'></script>
+    </head>
+
+	<section id='scroll'>
+		<div class='scroll__graphic'>
+			<!--<div class='chart'>
+				<p>0</p>
+			</div>-->
+		</div>
+		<div class='scroll__text'>
+			<div class='step' data-step='1'>
+				<p>STEP 1 and here is some more info</p>
+                
+               <svg class="graph">
+  <g class="grid x-grid">
+    <line x1="90" x2="90" y1="5" y2="371"></line>
+  </g>
+  <g class="grid y-grid">
+    <line x1="90" x2="705" y1="370" y2="370"></line>
+  </g>
+</svg>
+			</div>
+			<div class='step' data-step='2'>
+				<p>STEP 2</p>
+                
+                    <svg version="1.1" id="line_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1200px" height="400px" xml:space="preserve">
+                        <path class="data-2" fill="#01a09e" stroke-width="3" stroke="#01a09e" d="M1 0 L1 250" opacity="0"/>
+                        <path class="data-2" fill="#01a09e" stroke-width="3" stroke="#01a09e" d="M0 0 l250 0" transform="translate(0,250)" opacity="0"/>
+                    </svg>
+
+			</div>
+			<div class='step' data-step='3'>
+				<p>STEP 3</p>
+                
+                <svg version="1.1" id="line_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1200px" height="400px" xml:space="preserve">
+                    <path fill="#01a09e" stroke-width="3" stroke="#01a09e" d="M1 0 L1 250"/>
+                    <path fill="#01a09e" stroke-width="3" stroke="#01a09e" d="M0 0 l250 0" transform="translate(0,250)"/>
+                    <rect class="data-3" width="100" height="100" style="fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0);" transform="translate(15,15)" opacity="0"/>
+                    <rect class="data-3" width="100" height="100" style="fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0);" transform="translate(140,140)" opacity="0"/>
+                </svg>
+
+			</div>
+			<div class='step' data-step='4'>
+				<p>STEP 4</p>
+                
+                <svg version="1.1" id="line_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1200px" height="400px" xml:space="preserve">
+                    <path fill="#01a09e" stroke-width="3" stroke="#01a09e" d="M1 0 L1 250"/>
+                    <path fill="#01a09e" stroke-width="3" stroke="#01a09e" d="M0 0 l250 0" transform="translate(0,250)"/>
+                    <rect class="data-4" width="100" height="100" style="fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0)" transform="translate(15,140)" opacity="0"/>
+                    <rect class="data-4" width="100" height="100" style="fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0)" transform="translate(140,15)" opacity="0"/>
+                </svg>
+                
+			</div>
+		</div>
+	</section>
+	<!--<section id='outro'></section>--> 
+	<div class='debug'></div>
+	<script src='../d3.v4.min.js'></script>
+	<script src='https://unpkg.com/intersection-observer@0.5.0/intersection-observer.js'></script>
+	<script src='../scrollama.min.js'></script>
+	<script>
+		// using d3 for convenience
+		var container = d3.select('#scroll');
+		var graphic = container.select('.scroll__graphic');
+		var chart = graphic.select('.chart');
+		var text = container.select('.scroll__text');
+		var step = text.selectAll('.step');
+		// initialize the scrollama
+		var scroller = scrollama();
+		// generic window resize listener event
+		function handleResize() {
+			// 1. update height of step elements
+			var stepHeight = Math.floor(window.innerHeight * 0.75);
+			step.style('height', stepHeight + 'px');
+			// 2. update width/height of graphic element
+			var bodyWidth = d3.select('body').node().offsetWidth;
+			graphic
+				.style('width', bodyWidth + 'px')
+				.style('height', window.innerHeight + 'px');
+			var chartMargin = 32;
+			var textWidth = text.node().offsetWidth;
+			var chartWidth = graphic.node().offsetWidth - textWidth - chartMargin;
+			chart
+				.style('width', chartWidth + 'px')
+				.style('height', Math.floor(window.innerHeight / 2) + 'px');
+			// 3. tell scrollama to update new element dimensions
+			scroller.resize();
+		}
+		// scrollama event handlers
+        var stepEnterCount = 0;
+        
+		function handleStepEnter(response) {
+			// response = { element, direction, index }
+			// add color to current step only
+			step.classed('is-active', function (d, i) {
+				return i === response.index;
+			})
+			// update graphic based on step
+            
+            stepEnterCount ++;
+            //if (stepEnterCount == 4) {
+                if (response.index == 1) {
+                    var paths = $('.data-2');
+                    $(paths[0]).attr("class", "path3");
+                    $(paths[1]).attr("class", "path2");
+                } else if (response.index == 2) {
+                    var rects = $('.data-3');
+                    $(rects[0]).attr("class", "fade-in");
+                    $(rects[1]).attr("class","fade-in");
+                } else if (response.index == 3) {
+                    var rects = $('.data-4');
+                    $(rects[0]).attr("class", "fade-in");
+                    $(rects[1]).attr("class","fade-in");
+                }
+                stepEnterCount = 0;
+            //}
+            
+			chart.select('p').text(response.index + 1);
+		}
+		function handleContainerEnter(response) {
+			// response = { direction }
+			// sticky the graphic (old school)
+			graphic.classed('is-fixed', true);
+			graphic.classed('is-bottom', false);
+		}
+		function handleContainerExit(response) {
+			// response = { direction }
+			// un-sticky the graphic, and pin to top/bottom of container
+			graphic.classed('is-fixed', false);
+			graphic.classed('is-bottom', response.direction === 'down');
+		}
+		function init() {
+			// 1. force a resize on load to ensure proper dimensions are sent to scrollama
+			handleResize();
+			// 2. setup the scroller passing options
+			// this will also initialize trigger observations
+			// 3. bind scrollama event handlers (this can be chained like below)
+			scroller.setup({
+				container: '#scroll',
+				graphic: '.scroll__graphic',
+				text: '.scroll__text',
+				step: '.scroll__text .step',
+				debug: true,
+			})
+				.onStepEnter(handleStepEnter)
+				.onContainerEnter(handleContainerEnter)
+				.onContainerExit(handleContainerExit);
+			// setup resize event
+			window.addEventListener('resize', handleResize);
+		}
+		// kick things off
+		init();
+	</script>
+
+
+<!-- END SCROLL --> 
+            
+            
+            <div id="scatter-buttons"> 
                 <button onClick="scatterplot('us_scatter.csv', 'Autos & Vehicles')"> Autos & Vehicles </button>
                 <button onClick="scatterplot('us_scatter.csv', 'Comedy')"> Comedy </button>
                 <button onClick="scatterplot('us_scatter.csv', 'Education')"> Education </button>
@@ -67,7 +237,7 @@
                 <button onClick="scatterplot('us_scatter.csv', 'Shows')"> Shows </button>
                 <button onClick="scatterplot('us_scatter.csv', 'Sports')"> Sports </button>
                 <button onClick="scatterplot('us_scatter.csv', 'Travel & Events')"> Travel & Events </button>
-
+            </div>
 
 
 
@@ -76,7 +246,8 @@
         </section>
         
         <script src="http://d3js.org/d3.v4.min.js"></script>
-
+        <script src='https://unpkg.com/intersection-observer@0.5.0/intersection-observer.js'></script>
+        <script src='https://unpkg.com/scrollama'></script>
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
         <!--<script type="text/javascript" src="main.js"></script>--> 
         <script type="text/javascript" src="main2.js"></script>
