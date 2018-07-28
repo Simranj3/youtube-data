@@ -280,3 +280,11 @@
 	-moz-animation-duration:2s;
 	animation-duration:2s;
 }
+
+#tool-tip-scatter {
+	position: absolute;
+}
+
+.main-chart {
+	margin-left: 60px;
+}

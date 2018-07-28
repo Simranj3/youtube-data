@@ -41,16 +41,16 @@
                 <button onClick="showGraphTwo('gb-catts.json')"> UK </button>
             </div>
             
-            <div id="horizontal-bar-chart"  style="margin: auto"> </div>
+            <div id="horizontal-bar-chart"  class="main-chart"> </div>
             
             <p class="content-para"> There are a few interesting insights here: </p>
         </section>
         
-        <section id="stacked-chart"> 
+        <section id="stacked-chart" class="main-chart"> 
             <h1 class="section-header"> USA Trending Views by Channel </h1>
         </section>
         
-        <section id="scatter-chart"> 
+        <section id="scatter-chart" class="main-chart"> 
             <h1 class="section-header"> Scatter Plot Tings </h1>
             <p class="content-para"> For the following analysis, we decided to focus only on the videos trending in the USA. Let's start with how you should read the following graph: </p>
             
@@ -120,9 +120,9 @@
 	</section>
 	<!--<section id='outro'></section>--> 
 	<div class='debug'></div>
-	<script src='../d3.v4.min.js'></script>
+	<!-- <script src='../d3.v4.min.js'></script> -->
 	<script src='https://unpkg.com/intersection-observer@0.5.0/intersection-observer.js'></script>
-	<script src='../scrollama.min.js'></script>
+	<!-- <script src='../scrollama.min.js'></script> -->
 	<script>
 		// using d3 for convenience
 		var container = d3.select('#scroll');
@@ -244,7 +244,7 @@
 
 
         </section>
-        
+        <div id="tool-tip-scatter" style="position;absolute;"></div> 
         <script src="http://d3js.org/d3.v4.min.js"></script>
         <script src='https://unpkg.com/intersection-observer@0.5.0/intersection-observer.js'></script>
         <script src='https://unpkg.com/scrollama'></script>

@@ -97,17 +97,34 @@ function showGraphTwo(jsonURI) {
         g.append("g")
             .attr("class", "y axis")
             .call(d3.axisLeft(y));
-        
-//        .on("mousemove", function(d){
-//            tooltip
-//              .style("left", d3.event.pageX - 50 + "px")
-//              .style("top", d3.event.pageY - 70 + "px")
-//              .style("display", "inline-block")
-//              .html((d.area) + "<br>" + "£" + (d.Frequency));
-//        })
-//    		.on("mouseout", function(d){ tooltip.style("display", "none");});
-        
- });
+
+        // text label for the title
+        svg.append("text")             
+            .attr("transform",
+                  "translate(" + (width/2) + " ," + 
+                                 (margin.top - 10) + ")")
+            .style("text-anchor", "middle")
+            .style("font-size", "20px")
+            .text("Number of Trending Videos vs Categories");
+
+        // text label for the x axis
+        svg.append("text")             
+            .attr("transform",
+                  "translate(" + (width/2) + " ," + 
+                                 (height + margin.top + 20) + ")")
+            .style("text-anchor", "middle")
+            .text("Number of Trending Videos");
+
+        // text label for the y axis
+        svg.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 0 - margin.left)
+            .attr("x",0 - (height / 2))
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .text("Categories");  
+
+});
     function redrawGraph(data) {
         
         svg.selectAll(".bar")
@@ -135,8 +152,31 @@ var y = d3.scaleBand().range([height, 0]);*/
     var svg = d3.select("#stacked-chart").append("svg")
         .attr("width", 1000)
         .attr("height", 400);
+
+    var div = d3.select("#tool-tip-scatter");
     
-    
+    function sumChannelMapper(categories, dataArr) {
+        let channelMapObj = {};
+        for (let i=0; i < categories.length; i++) {
+            channelMapObj[categories[i]] = 0;
+        }
+
+        for (let i=0; i < dataArr.length; i++) {
+            let currObj = dataArr[i];
+
+            console.log(currObj.category);
+            for (let key in currObj) {
+                channelMapObj[key] += currObj[key];
+            }
+        }
+
+        let countMap = {}
+        for (let key in channelMapObj) {
+            countMap[channelMapObj[key]] = key;
+        }
+        return countMap;
+    }
+
     d3.json(jsonURI, (data) => {
         var results = cleanDFCategoryJSON(data);
         var data = results[0];
@@ -146,7 +186,8 @@ var y = d3.scaleBand().range([height, 0]);*/
         var color = d3.scaleOrdinal(d3.schemeCategory20);
         var g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
         
-        console.log(data);
+        console.log(['categories', data]);
+        var countMap = sumChannelMapper(catKeys, data);
         var layer = g.selectAll(".layer")
 			.data(layers)
 			.enter().append("g")
@@ -161,10 +202,6 @@ var y = d3.scaleBand().range([height, 0]);*/
 		var yScale = d3.scaleBand().rangeRound([height, 0]).padding(0.1);
         var xAxis = d3.axisBottom(xScale),
             yAxis =  d3.axisLeft(yScale);
-        
-        var div = d3.select("body").append("div").attr("id","tool-tip")
-                    //.attr("class", "tooltip")
-                    //.style("opacity", 0);
         
         xScale.domain([0, d3.max(layers[layers.length - 1], function(d) { return (d[0] + d[1])/2; }) ]).nice();        
         yScale.domain(data.map(function(d) { return d.category; })).padding(0.1);
@@ -182,15 +219,38 @@ var y = d3.scaleBand().range([height, 0]);*/
 			  .data(function(d) { return d; })
 			  .enter().append("rect")
               .attr("class", "stack-rect")
-              .attr("class", function(d) {
-                return "stack-rect" + d.data.category.split(' ').join('-').split('&').join('-');
-              })
               .attr("y", function(d) { 
                 return yScale(d.data.category); } )
 			  .attr("x", function(d) { return xScale(d[0]); })
 			  .attr("height", yScale.bandwidth())
 			  .attr("width", function(d) { return xScale(d[1]) - xScale(d[0]) });
 
+
+        // text label for the title
+        svg.append("text")             
+            .attr("transform",
+                  "translate(" + (width/2) + " ," + 
+                                 (margin.top - 10) + ")")
+            .style("text-anchor", "middle")
+            .style("font-size", "20px")
+            .text("Number of Trending Videos vs Categories and Channel");
+
+        // text label for the x axis
+        svg.append("text")             
+            .attr("transform",
+                  "translate(" + (width/2) + " ," + 
+                                 (height + margin.top + 20) + ")")
+            .style("text-anchor", "middle")
+            .text("Views");
+
+        // text label for the y axis
+        svg.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 0 - margin.left)
+            .attr("x",0 - (height / 2))
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .text("Categories");  
 
 //        .on("mouseover", function(d) {
 //            console.log(d);
@@ -205,36 +265,50 @@ var y = d3.scaleBand().range([height, 0]);*/
 //                //.style("left", (d3.event.pageX) + "px")
 //                //.style("top", (d3.event.pageY - 28) + "px");
 //        }).on("mouseout", function(d) {
-//            
 //           div.transition()
 //             .duration(500)
 //             .style("opacity", 0);
 //       });
-//        
+        
         // console.log();
         //TODO: pickup here
-        
-//        var stackedLayers = d3.selectAll(".stack-rect");
-//                stackedLayers.on("mouseover", (d) => {
-//                    console.log(d[1]);
-//                     var thisName = d3.select(this.parentNode).datum().key;
-//                console.log(thisName);
-//                div.transition()
-//                    .duration(200)
-//                    .style("opacity", .9);
-//                console.log(d);
-//                div.html(d.data.category + " <br/>" )
-//                    .style("left", "500 px")
-//                    .style("top", "500 px")
-//                    .style("background-color", "red");
-//                
-//            }).on("mouseout", (d) => {
-//                div.transition()
-//                .duration(500)
-//                .style("opacity", 0);
-//            });
 
-    })
+        var stackedLayers = d3.selectAll(".stack-rect");
+        stackedLayers.on("mouseover", (d) => {
+            var hoverContent = countMap[d[1]-d[0]] + " <br/> total views: " + numberWithCommas(d[1]-d[0]) + " <br/>";
+            console.log(d);
+            console.log(d[1]-d[0]);
+            console.log(countMap[d[1]-d[0]]);
+            console.log("views: " + numberWithCommas(d[1]-d[0]));
+
+
+            div.transition()
+                .duration(100)
+                .style("opacity", 0.9);
+            div.html(hoverContent)
+                .style("left", (d3.event.pageX) + "px")
+                .style("top", (d3.event.pageY - 28) + "px")
+                .style("background-color", "#6D6D6D")
+                .style("color", "white")
+                .style("font-family", "'Roboto'")
+                .style("font-family", "12px");
+
+            }).on("mouseout", (d) => {
+            setTimeout(()=>{
+              div.transition()
+                 .duration(2000)
+                 .style("opacity", 0);
+            }, 100);
+
+        }).on("mouseout", (d) => {
+            setTimeout(()=>{
+              div.transition()
+                 .duration(2000)
+                 .style("opacity", 0);
+            }, 100);
+        });
+
+})
 }
 
 function cleanDFCategoryJSON(youtubeData) {
@@ -279,6 +353,8 @@ function cleanDFCategoryJSON(youtubeData) {
 }
 
 function scatterplot(csvURI, category) {
+    var div = d3.select("#tool-tip-scatter");
+    div.html("");
     d3.csv(csvURI, (data) => {
         data.forEach(function(d) {
             d.views = +d.views;
@@ -296,9 +372,11 @@ function scatterplot(csvURI, category) {
         data = newData;
         
         xScatter.domain(d3.extent(data, function(d) { return parseInt(d.views); })).nice();
-        yScatter.domain([0,1]);
+        yScatter.domain([0,100]);
         //yScatter.domain(d3.extent(data, function(d) { return parseFloat(parseInt(d.likes)/(parseInt(d.likes)+parseInt(d.dislikes))); })).nice();
-        var div = d3.select("body").append("div").attr("id","tool-tip-scatter").style("position","absolute");
+        //var div = d3.select("body").append("div").attr("id","tool-tip-scatter").style("position","absolute");
+        
+
      if (svgScatter.selectAll("*")._groups[0].length != 0) {
          // svgScatter.selectAll("*:not(.x-axis)").remove();
          if (scatterSize > data.length) {
@@ -326,31 +404,59 @@ function scatterplot(csvURI, category) {
           .transition()
           .duration(250)
           .attr("class", "dot")
-          .attr("r", 2)
+          .attr("r", 3)
           .attr("cx", function(d) { return xScatter(d.views); })
-          .attr("cy", function(d) { return yScatter(parseFloat(parseInt(d.likes)/(parseInt(d.likes)+parseInt(d.dislikes))));  })
+          .attr("cy", yScalerScatter)
           .style("fill", function(d) { return colorScatter(d.category_id); })
-          
-     }
+        
+        // text label for the title
+        svgScatter.append("text")             
+            .attr("transform",
+                  "translate(" + (width/2) + " ," + 
+                                 (marginScatter.top - 10) + ")")
+            .style("text-anchor", "middle")
+            .style("font-size", "20px")
+            .text("Trending Videos by Views and % Likes (<for some date>)");
+
+        // text label for the x axis
+        svgScatter.append("text")             
+            .attr("transform",
+                  "translate(" + (width/2) + " ," + 
+                                 (height + marginScatter.top + 20) + ")")
+            .style("text-anchor", "middle")
+            .text("Views");
+
+        // text label for the y axis
+        svgScatter.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 0 - marginScatter.left)
+            .attr("x",0 - (height / 2))
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .text("% of Likes");  
+
+     } 
     
         d3.selectAll("circle").on("mouseover", (d) => {
-             // d3.select(this).attr("color", "black")
-            console.log("hovering");
+          var hoverContent =  d.title + " <br/> views: " + numberWithCommas(d.views) + " <br/>";
+
             div.transition()
                 .duration(100)
                 .style("opacity", 0.9);
-            div.html(d.title + " <br/>")
+            div.html(hoverContent)
                 .style("left", (d3.event.pageX) + "px")
                 .style("top", (d3.event.pageY - 28) + "px")
                 .style("background-color", "#6D6D6D")
                 .style("color", "white")
                 .style("font-family", "'Roboto'")
                 .style("font-family", "12px");
-                //.attr("class", "hoverEl");
+
         }).on("mouseout", (d) => {
-            div.transition()
-            .duration(500)
-            .style("opacity", 0);
+            setTimeout(()=>{
+              div.transition()
+                 .duration(2000)
+                 .style("opacity", 0);
+            }, 100);
         });
         
       svgScatter.append("g")
@@ -388,9 +494,9 @@ function redrawScatter(data) {
       .data(data)
       .transition()
       .duration(500)
-      .attr("r", 4)
+      .attr("r", 3)
       .attr("cx", function(d) { return xScatter(d.views); })
-      .attr("cy", function(d) { return yScatter(parseFloat(parseInt(d.likes)/(parseInt(d.likes)+parseInt(d.dislikes))));  })
+      .attr("cy", yScalerScatter)
       .style("fill", function(d) { return colorScatter(d.category_id); });
 }
 
@@ -406,7 +512,7 @@ function deleteSomeOldies(deleteSize) {
     circles.each(function(d,i) {            
        if (deleteSize!=0) {
            this.remove();   
-           deleteSize --;
+           deleteSize--;
        }
     });
 }
@@ -437,6 +543,8 @@ var svgScatter = d3.select("#scatter-chart").append( "svg")
     .attr("transform", "translate(" + marginScatter.left + "," + marginScatter.top + ")");
 
 var scatterSize = 0;
+
+var yScalerScatter = function(d) { return yScatter(parseFloat(parseInt(d.likes)/(parseInt(d.likes)+parseInt(d.dislikes))) * 100); };
 
 showGraphTwo('ca-catts.json'); 
 showGraphCategoriesAndCreators('us-catts-creats.json');
@@ -514,4 +622,10 @@ scatterplot('us_scatter.csv', 'News & Politics');
 			window.addEventListener('resize', handleResize);
 		}
 		// kick things off
-		init();*/
+		init();
+*/
+
+// Helpers
+const numberWithCommas = (x) => {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
