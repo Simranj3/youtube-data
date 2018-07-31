@@ -25,7 +25,6 @@
         
         <br> 
         <br> 
-        <br> 
         <section id="button-chart"> 
             
         <h1 class="section-header"> Trends by Country </h1>
@@ -33,6 +32,7 @@
         <p class="content-para"> Let's start by sorting the data by country. The dataset provided a location tag for each Youtube video (i.e: the video went viral in Canada). It should be noted that some datapoints may overlap (some videos were trending in more than one country). </p>
             
         <p class="content-para"> In this chart, we took all of the trending videos on Youtube and sorted them by the category they were listed under and the country they were trending in. The totals represent the number of videos that were trending in each of the categories. </p>
+            <br> 
             <div id="change-buttons"> 
                 <button onClick="showGraphTwo('ca-catts.json')"> Canada </button>
                 <button onClick="showGraphTwo('us-catts.json')"> USA </button>
@@ -75,7 +75,7 @@
 		<div class='scroll__text'>
             <div class="wrapper"> 
                 <div class='step' data-step='2' style="height: 350px;">
-                    <p>The Axis </p>
+                    <p id="explain-heading">The Axis </p>
                         <svg version="1.1" id="line_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="250px" height="250px" xml:space="preserve" class="svg-canvas">
                             <path class="data-2" fill="#01a09e" stroke-width="2" stroke="#6D6D6D" d="M1 0 L1 250" opacity="0"/>
                             <path class="data-2" fill="#01a09e" stroke-width="2" stroke="#6D6D6D" d="M0 0 l250 0" transform="translate(0,250)" opacity="0"/>
@@ -84,13 +84,13 @@
                         </svg>
                 </div>
                 <div class="educational-text" style="float:right;">
-                    <p> Today I'll teach you some shit</p>
+                    <p class="helper-text"> The x-axis indicates the number of views that an individual video has, while the y-axis shows how many of the total likes/dislikes were likes. This gives us a general feel for how well received a video was. </p>
                 </div>
             </div>
             
             <div class="wrapper">
                 <div class='step' data-step='3' style="height: 350px; ">
-                    <p>The Popular Videos</p>
+                    <p id="explain-heading-2">The Popular Videos</p>
                     <svg version="1.1" id="line_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="250px" height="250px" xml:space="preserve" class="svg-canvas">
                         <path fill="#01a09e" stroke-width="2" stroke="#6D6D6D" d="M1 0 L1 250"/>
                         <path fill="#01a09e" stroke-width="2" stroke="#6D6D6D" d="M0 0 l250 0" transform="translate(0,250)"/>
@@ -101,13 +101,13 @@
                     </svg>
                 </div>
                 <div class="educational-text" style="float:right;">
-                    <p> Today I'll teach you some shit</p>
+                    <p class="helper-text"> The top two quadrants are videos that are generally more well received. The right-most quadrant tells us that a video had the most views and was the <b>most</b> well received. </p>
                 </div>
             </div>
             
             <div class='wrapper'>
                 <div class='step' data-step='4' style="height: 350px">
-                    <p>The Unpopular Videos</p>
+                    <p id="explain-heading-3"> The Unpopular Videos</p>
                     <svg version="1.1" id="line_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="250px" height="250px" xml:space="preserve" class="svg-canvas">
                         <path fill="#01a09e" stroke-width="2" stroke="#6D6D6D" d="M1 0 L1 250"/>
                         <path fill="#01a09e" stroke-width="2" stroke="#6D6D6D" d="M0 0 l250 0" transform="translate(0,250)"/>
@@ -118,7 +118,7 @@
                     </svg>
                 </div>
                 <div class="educational-text" style="float:right;">
-                    <p> Today I'll teach you some shit</p>
+                    <p class="helper-text"> The bottom quadrants are videos that are more unpopular, since they have a decreased 'percent like'. The bottom right most video tells us the video with the <b> least</b> number of likes but most views, making it more controversial. </p>
                 </div>
             </div>
 		</div>

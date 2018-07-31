@@ -299,7 +299,7 @@
 
 .educational-text{ 
     width: 300px; 
-    background-color: red; 
+   /* background-color: red; */
     display: block; 
     height: 100px; 
     text-align: center;
@@ -308,9 +308,36 @@
 
 .wrapper{ 
     width: 800px; 
-    background-color: yellow;
+    /*background-color: yellow;*/
     display:flex;
 }
 .wrapper div {
     flex-basis: 100%;
+}
+
+#explain-heading { 
+ font-family: 'Vollkorn';
+ font-size: 18px; 
+margin-left: 20%; 
+}
+
+#explain-heading-2{ 
+font-family: 'Vollkorn';
+ font-size: 18px; 
+margin-left: 20%; 
+}
+
+#explain-heading-3{ 
+font-family: 'Vollkorn';
+ font-size: 18px; 
+margin-left: 20%; 
+}
+
+.helper-text{ 
+    font-family: 'Roboto'; 
+    font-size: 14px; 
+    text-align: left;
+    background-color: #F9F9F9;
+    padding: 20px; 
+    border-radius: 5px; 
 }
