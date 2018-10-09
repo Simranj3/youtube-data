@@ -341,3 +341,7 @@ margin-left: 20%;
     padding: 20px; 
     border-radius: 5px; 
 }
+
+.scrollama__debug-offset {
+	display: none;
+}
